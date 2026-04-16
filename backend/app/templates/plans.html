@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <div>
+      <div class="h4 mb-1">Wifi Rates</div>
+      <div class="text-secondary">Coins → Minutes mapping per vendo</div>
+    </div>
+  </div>
+
+  <div class="card p-3 mb-4">
+    <form method="post" action="/admin/plans" class="row g-2 align-items-end">
+      <div class="col-12 col-md-3">
+        <label class="form-label">Vendo</label>
+        <select class="form-select" name="vendo_id" required>
+          {% for v in vendos %}
+            <option value="{{ v.id }}">{{ v.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-12 col-md-3">
+        <label class="form-label">Name</label>
+        <input class="form-control" name="name" placeholder="₱10 = 1hr" required />
+      </div>
+      <div class="col-6 col-md-2">
+        <label class="form-label">Coins</label>
+        <input class="form-control" name="coins" type="number" min="1" required />
+      </div>
+      <div class="col-6 col-md-2">
+        <label class="form-label">Minutes</label>
+        <input class="form-control" name="minutes" type="number" min="1" required />
+      </div>
+      <div class="col-12 col-md-2">
+        <button class="btn btn-primary w-100" type="submit">Add</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="card p-3">
+    <div class="table-responsive">
+      <table class="table table-striped align-middle mb-0">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Coins</th>
+            <th>Minutes</th>
+            <th>Vendo</th>
+            <th>Created</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for p in plans %}
+            <tr>
+              <td class="fw-semibold">{{ p.name }}</td>
+              <td>{{ p.coins }}</td>
+              <td>{{ p.minutes }}</td>
+              <td>{{ p.vendo_id }}</td>
+              <td>{{ p.created_at }}</td>
+            </tr>
+          {% endfor %}
+          {% if plans|length == 0 %}
+            <tr>
+              <td colspan="5" class="text-center text-secondary py-4">No plans yet</td>
+            </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}
+

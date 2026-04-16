@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <div>
+      <div class="h4 mb-1">Coin Devices</div>
+      <div class="text-secondary">ESP8266 / sub-vendo coinslot endpoints</div>
+    </div>
+  </div>
+
+  <div class="card p-3 mb-4">
+    <form method="post" action="/admin/devices" class="row g-2 align-items-end">
+      <div class="col-12 col-md-3">
+        <label class="form-label">Vendo</label>
+        <select class="form-select" name="vendo_id" required>
+          {% for v in vendos %}
+            <option value="{{ v.id }}">{{ v.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-12 col-md-3">
+        <label class="form-label">Device Name</label>
+        <input class="form-control" name="name" required />
+      </div>
+      <div class="col-12 col-md-3">
+        <label class="form-label">Secret (optional)</label>
+        <input class="form-control" name="secret" />
+      </div>
+      <div class="col-6 col-md-1">
+        <label class="form-label">Pulses/Coin</label>
+        <input class="form-control" name="pulses_per_coin" type="number" min="1" value="1" />
+      </div>
+      <div class="col-6 col-md-1">
+        <label class="form-label">Coins/Pulse</label>
+        <input class="form-control" name="coins_per_pulse" type="number" min="1" value="1" />
+      </div>
+      <div class="col-12 col-md-1">
+        <button class="btn btn-primary w-100" type="submit">Add</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="card p-3">
+    <div class="table-responsive">
+      <table class="table table-striped align-middle mb-0">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Device ID</th>
+            <th>Vendo ID</th>
+            <th>Secret</th>
+            <th>Pulses/Coin</th>
+            <th>Coins/Pulse</th>
+            <th>Pending Pulses</th>
+            <th>Pending Coins</th>
+            <th>Enabled</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for d in devices %}
+            <tr>
+              <td class="fw-semibold">{{ d.name }}</td>
+              <td>{{ d.id }}</td>
+              <td>{{ d.vendo_id }}</td>
+              <td>{{ d.secret[:6] ~ "..." ~ d.secret[-4:] }}</td>
+              <td>{{ d.pulses_per_coin }}</td>
+              <td>{{ d.coins_per_pulse }}</td>
+              <td>{{ d.pending_pulses }}</td>
+              <td>{{ d.pending_coins }}</td>
+              <td>{{ d.enabled }}</td>
+            </tr>
+          {% endfor %}
+          {% if devices|length == 0 %}
+            <tr>
+              <td colspan="9" class="text-center text-secondary py-4">No devices yet</td>
+            </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <div>
+      <div class="h4 mb-1">Vendo List</div>
+      <div class="text-secondary">Mapping ng hotspot server / VLAN papunta sa vendo</div>
+    </div>
+  </div>
+
+  <div class="card p-3 mb-4">
+    <form method="post" action="/admin/vendos" class="row g-2 align-items-end">
+      <div class="col-12 col-md-4">
+        <label class="form-label">Vendo Name</label>
+        <input class="form-control" name="name" required />
+      </div>
+      <div class="col-12 col-md-4">
+        <label class="form-label">Hotspot Server (optional)</label>
+        <input class="form-control" name="mikrotik_hotspot_server" />
+      </div>
+      <div class="col-12 col-md-2">
+        <label class="form-label">VLAN ID (optional)</label>
+        <input class="form-control" name="vlan_id" type="number" min="1" max="4094" />
+      </div>
+      <div class="col-12 col-md-2">
+        <button class="btn btn-primary w-100" type="submit">Add</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="card p-3">
+    <div class="table-responsive">
+      <table class="table table-striped align-middle mb-0">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Hotspot Server</th>
+            <th>VLAN</th>
+            <th>Created</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for v in vendos %}
+            <tr>
+              <td class="fw-semibold">{{ v.name }}</td>
+              <td>{{ v.mikrotik_hotspot_server or "" }}</td>
+              <td>{{ v.vlan_id or "" }}</td>
+              <td>{{ v.created_at }}</td>
+            </tr>
+          {% endfor %}
+          {% if vendos|length == 0 %}
+            <tr>
+              <td colspan="4" class="text-center text-secondary py-4">No vendos yet</td>
+            </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}
+

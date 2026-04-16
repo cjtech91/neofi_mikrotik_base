@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <div>
+      <div class="h4 mb-1">Dashboard</div>
+      <div class="text-secondary">Hotspot + Vendo + Coinslot overview</div>
+    </div>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-12 col-md-4">
+      <div class="card p-3">
+        <div class="text-secondary">Vendos</div>
+        <div class="display-6">{{ vendo_count }}</div>
+      </div>
+    </div>
+    <div class="col-12 col-md-4">
+      <div class="card p-3">
+        <div class="text-secondary">Coin Devices</div>
+        <div class="display-6">{{ device_count }}</div>
+      </div>
+    </div>
+    <div class="col-12 col-md-4">
+      <div class="card p-3">
+        <div class="text-secondary">Plans</div>
+        <div class="display-6">{{ plan_count }}</div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ title or "Hotspot Manager" }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+      body { background: #0f172a; color: #e2e8f0; }
+      .sidebar { background: #111827; min-height: 100vh; }
+      .sidebar a { color: #cbd5e1; text-decoration: none; }
+      .sidebar a.active { background: #2563eb; color: #fff; }
+      .card { background: #111827; border: 1px solid #1f2937; }
+      .table { --bs-table-bg: transparent; --bs-table-striped-bg: rgba(255,255,255,0.04); color: #e2e8f0; }
+      .form-control, .form-select { background: #0b1220; border-color: #1f2937; color: #e2e8f0; }
+      .form-control:focus, .form-select:focus { background: #0b1220; color: #e2e8f0; }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-12 col-md-3 col-lg-2 sidebar p-3">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="fw-semibold">NeoFi Hotspot</div>
+            <a class="btn btn-sm btn-outline-light" href="/logout">Logout</a>
+          </div>
+          <div class="list-group list-group-flush">
+            <a class="list-group-item list-group-item-action {% if nav=='dashboard' %}active{% endif %}" href="/admin">Dashboard</a>
+            <a class="list-group-item list-group-item-action {% if nav=='vendos' %}active{% endif %}" href="/admin/vendos">Vendo List</a>
+            <a class="list-group-item list-group-item-action {% if nav=='devices' %}active{% endif %}" href="/admin/devices">Coin Devices</a>
+            <a class="list-group-item list-group-item-action {% if nav=='plans' %}active{% endif %}" href="/admin/plans">Wifi Rates</a>
+          </div>
+        </nav>
+        <main class="col-12 col-md-9 col-lg-10 p-4">
+          {% block content %}{% endblock %}
+        </main>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
