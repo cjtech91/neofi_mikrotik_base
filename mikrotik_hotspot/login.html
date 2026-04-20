@@ -29,7 +29,7 @@
     <div class="wrap">
       <div class="card">
         <div class="title">WiFi Vendo</div>
-        <div class="sub">Insert coin sa vendo. Auto-login kapag may voucher na na-generate.</div>
+        <div class="sub">Insert coin sa vendo. Auto-login kapag may load na pumasok.</div>
         <div class="row" style="margin-bottom: 12px;">
           <div class="pill">MAC: <b id="mac"></b></div>
           <div class="pill">Server: <b id="server"></b></div>
@@ -40,11 +40,6 @@
         <div class="row" style="margin-bottom: 12px;">
           <button id="btnStart" type="button">Start Insert Coin</button>
           <button id="btnStop" class="secondary" type="button" disabled>Stop</button>
-        </div>
-        <div class="row" style="margin-bottom: 12px;">
-          <div class="small">Or manual voucher:</div>
-          <input id="manualCode" placeholder="Enter voucher code" />
-          <button id="btnLogin" type="button">Login Voucher</button>
         </div>
         <div class="small">
           API Base: <span id="apibase"></span>
@@ -78,8 +73,6 @@
         var elApi = document.getElementById("apibase");
         var btnStart = document.getElementById("btnStart");
         var btnStop = document.getElementById("btnStop");
-        var btnLogin = document.getElementById("btnLogin");
-        var manualCode = document.getElementById("manualCode");
 
         elMac.textContent = clientMac || "-";
         elServer.textContent = serverName || "-";
@@ -255,19 +248,8 @@
 
         btnStop.addEventListener("click", stopPolling);
 
-        btnLogin.addEventListener("click", function () {
-          var code = (manualCode.value || "").trim();
-          if (!code) {
-            setStatus("Please enter voucher code.", "bad");
-            return;
-          }
-          setStatus("Logging in...", "ok");
-          doLogin(code);
-        });
-
         setStatus("Ready. Click Start Insert Coin.", "ok");
       })();
     </script>
   </body>
 </html>
-
